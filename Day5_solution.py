@@ -34,7 +34,7 @@ def part_2():
     return min(p2answer)
 
 def process_file():
-    global Seeds, Transtabs
+    global Seeds, TransTabs
     proctype = -1
     for line in Lines:
         if len(line) < 3:
