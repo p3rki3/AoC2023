@@ -6,6 +6,7 @@
 
 import time
 import types
+import sys
 
 prog_start_time = 0
 vanswer1 = vanswer2 = None
@@ -52,6 +53,7 @@ def run(answer1, answer2=None):  # will accept a tuple, or either 1 or 2 answers
         print("Verified answer : ", vanswer1, "\n")
     prog1_end_time = time.perf_counter()
     print("Elapsed time:", prog1_end_time - prog_start_time, "\n")
+    sys.stdout.flush()
     if isinstance(answer2, types.FunctionType):
         print("Part 2 answer is: ", answer2())
     else:
