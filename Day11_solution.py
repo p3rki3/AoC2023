@@ -15,20 +15,18 @@ def solve(expfactor):
     return answer
 
 def process_file():
-    for count, line in enumerate(Galaxy):
-        if line.find('#') == -1:
-            Erows.append(count)
-    for count in range(len(Galaxy[0])):
-        empty = True
-        for line in Galaxy:
-            if line[count] =='#':
-                empty = False
-        if empty is True:
-            Ecols.append(count)
+    rows, cols = [], []
     for countr, line in enumerate(Galaxy):
         for countc, char in enumerate(line):
             if char == '#':
                 Galaxies.append((countr, countc))
+                rows.append(countr)
+                cols.append(countc)
+    for count in range(max(len(Galaxy), len(Galaxy[0]))):
+        if count not in rows:
+            Erows.append(count)
+        if count not in cols:
+            Ecols.append(count)
 
 Galaxy, Erows, Ecols, Galaxies = AoC.Init("data/day11.txt")[0], [], [], []
 process_file()
