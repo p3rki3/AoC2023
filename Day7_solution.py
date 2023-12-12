@@ -37,7 +37,7 @@ def process_file():
     for line in Lines:
         cards, bid = line.split(' ')
         ctype, whichtype = -1, ''
-        for card in ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']:
+        for card in 'AKQJT98765432':
             if cards.count(card) > 0:
                 whichtype += (str(cards.count(card)))
         whichtype = ''.join(sorted(whichtype))
