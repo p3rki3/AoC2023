@@ -45,6 +45,10 @@ def run(answer1, answer2=None):  # will accept a tuple, or either 1 or 2 answers
     global prog_start_time
     if type(answer1) == tuple:
         (answer1, answer2) = answer1
+    if isinstance(answer1, types.FunctionType) and answer2 == None and vanswer2 is not None:
+        answer = answer1()
+        if type(answer) == tuple:
+            (answer1, answer2) = answer
     if isinstance(answer1, types.FunctionType):
         print("Part 1 answer is: ", answer1())
     else:
