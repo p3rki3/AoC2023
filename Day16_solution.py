@@ -1,7 +1,7 @@
 import AoCFramework as AoC
 
 def part_1(initr=0,initc=0,initdirn=1):
-    posn, seen, seendirn = [(initr, initc, initdirn)], set(), set()
+    posn, seen = [(initr, initc, initdirn)], set()
     nextblock = lambda row, col, dirn: (row + [-1,0,1,0][dirn], col + [0,1,0,-1][dirn], dirn)
     while True:
         if len(posn) == 0:
@@ -9,10 +9,9 @@ def part_1(initr=0,initc=0,initdirn=1):
         nextpos = []
         for (row, col, dirn) in posn:
             if 0 <= row < Rows and 0 <= col < Cols:
-                seen.add((row, col))
-                if (row, col, dirn) in seendirn:
+                if (row, col, dirn) in seen:
                     continue
-                seendirn.add((row, col, dirn))
+                seen.add((row, col, dirn))
                 match Grid[row][col]:
                     case '.':
                         nextpos.append(nextblock(row, col, dirn))
@@ -33,7 +32,7 @@ def part_1(initr=0,initc=0,initdirn=1):
                         else:
                             nextpos.append(nextblock(row, col, dirn))
         posn = nextpos
-    return len(seen)
+    return len(set((row, col) for (row, col, _) in seen))
 
 def part_2():
     p2answer = []
