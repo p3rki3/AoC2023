@@ -1,11 +1,10 @@
 import AoCFramework as AoC
 
 def solve(part=1):
-    dirs, dirs_t = [(0, 1), (1, 0), (0, -1), (-1, 0)], ['R', 'D', 'L', 'U']
-    perimeter, x, y, coords = 0, 0, 0, [(0, 0)]
+    perimeter, x, y, coords, dirs = 0, 0, 0, [(0, 0)],[(0, 1), (1, 0), (0, -1), (-1, 0)]
     for line in Lines:   #R 3 (#63d832)
         line2 = line.split(' ') if part == 1 else line.split('#')[1].split(')')[0]
-        dirn = dirs[dirs_t.index(line2[0])] if part == 1 else dirs[int(line2[-1])]
+        dirn = dirs['RDLU'.index(line2[0])] if part == 1 else dirs[int(line2[-1])]
         dist = int(line2[1]) if part == 1 else int(line2[:-1], 16)
         x, y, perimeter = x + dirn[0] * dist, y + dirn[1] * dist, perimeter + dist
         coords.insert(0, (x, y))
