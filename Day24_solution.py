@@ -4,14 +4,15 @@ from z3 import Int, Solver, sat
 def part_1():
     p1answer, lower, upper = 0, 2*10**14, 4*10**14
     for s1 in range(stones):
+        x1, x2, y1, y2 = Stones[s1][0], Stones[s1][0] + Stones[s1][3], Stones[s1][1], Stones[s1][1] + Stones[s1][4]
         for s2 in range(s1 + 1, stones):
-            x1, x2, y1, y2 = Stones[s1][0], Stones[s1][0] + Stones[s1][3], Stones[s1][1], Stones[s1][1] + Stones[s1][4]
             x3, x4, y3, y4 = Stones[s2][0], Stones[s2][0] + Stones[s2][3], Stones[s2][1], Stones[s2][1] + Stones[s2][4]
-            if ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)) != 0:    # are trajectories parallel? if not interpolate intersection point
-                interpolx = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4))
-                interpoly = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4))
+            try:
+                divisor, factor1, factor2 = ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)), (x1 * y2 - y1 * x2), (x3 * y4 - y3 * x4)
+                interpolx, interpoly = (factor1 * (x3 - x4) - factor2 * (x1 - x2)) / divisor, (factor1 * (y3 - y4) - factor2 * (y1 - y2)) / divisor
                 isfuture = ((interpolx > x1) == (x2 > x1)) and ((interpolx > x3) == (x4 > x3))
                 p1answer += 1 if lower <= interpolx <= upper and lower <= interpoly <= upper and isfuture else 0
+            except:  pass # divide by zero for parallel trajectories
     return p1answer
 
 def part_2():
